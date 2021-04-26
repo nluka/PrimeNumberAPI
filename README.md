@@ -1,2 +1,2 @@
 # primeNumberApi
-A simple API for prime numbers.
+A simple web API for prime numbers.
