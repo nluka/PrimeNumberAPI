@@ -24,34 +24,34 @@ A simple web API for prime numbers.
 {
   randomPrimes: number[]
   // The array of random primes.
-  // Will have length 1 by default.
+  // Will contain `count` number of items (defaults to 1).
 }
 ```
 
 #### Examples
 
-One prime number between 1 and 1,000,000
+Get one random prime number between 1 and 1,000,000
 
 ```HTTP
   GET /random
 ```
 
-Five prime numbers between 1 and 1,000,000
+Get five random prime numbers between 1 and 1,000,000
 
 ```HTTP
   GET /random?count=5
 ```
 
-One prime number between 10 and 20
+Get one random prime number between 10 and 20
 
 ```HTTP
   GET /random?min=10&max=20
 ```
 
-Ten prime numbers between 500 and 1,000
+Get one random prime number between 1 and 100
 
 ```HTTP
-  GET /random?count=5&min=500&max=1000
+  GET /random?min=100
 ```
 
 ### Get closest prime number
@@ -71,16 +71,16 @@ Ten prime numbers between 500 and 1,000
 ```ts
 {
   closestPrime: number;
-  // The closest prime to the target.
+  // The closest prime number to the target.
   // If there are 2 equidistant primes, returns the smaller one.
-  // If the target is a prime, returns the closest prime to the target.
+  // If the target is a prime, returns the closest prime to the target that isn't itself.
 }
 ```
 
 #### Examples
 
-Closest prime number to 123
+Get closest prime number to 123
 
 ```HTTP
-  GET /random?target=123
+  GET /closest?target=123
 ```
