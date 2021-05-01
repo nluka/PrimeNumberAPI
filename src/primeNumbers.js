@@ -1,4 +1,4 @@
-const primeNumberArray = [
+module.exports.primeNumber = [
   1,
   2,
   3,

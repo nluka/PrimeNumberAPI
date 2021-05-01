@@ -11,6 +11,7 @@
   },
   "rules": {
     "comma-dangle": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "no-plusplus": "off"
   }
 }
