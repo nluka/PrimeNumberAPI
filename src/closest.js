@@ -1,15 +1,13 @@
+const primeNumbers = require('./primeNumbers');
+
+const primeNumberList = primeNumbers.primeNumber;
+
 function isNumberPrime(number) {
-  if (number === 1 || number === 2) {
-    return true;
-  }
-  if (number % 2 === 0) {
-    return false;
-  }
-  for (let y = 3; y <= 500001; y += 2) {
-    if (y > number / 2) {
+  for (let y = 0; y <= primeNumberList.length; y++) {
+    if (primeNumberList[y] > number / 2) {
       return true;
     }
-    if (number % y === 0) {
+    if (number % primeNumberList[y] === 0) {
       return false;
     }
   }

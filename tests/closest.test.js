@@ -9,6 +9,12 @@ test('isNumberPrime(number) should return true when number is prime', () => {
   expect(isNumberPrime(452377)).toBe(true);
 });
 
+test('isNumberPrime(number) should return false when number is not prime', () => {
+  expect(isNumberPrime(6)).toBe(false);
+  expect(isNumberPrime(95)).toBe(false);
+  expect(isNumberPrime(476091)).toBe(false);
+});
+
 // getClosestPrime
 
 test('getClosestPrime(target) should return 999983 when target 1000000', () => {

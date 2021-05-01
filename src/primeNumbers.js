@@ -1,5 +1,4 @@
 module.exports.primeNumber = [
-  1,
   2,
   3,
   5,
