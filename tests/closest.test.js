@@ -58,7 +58,7 @@ test('5. getClosestPrime(target) should return the nearest prime when `target` c
   expect(getClosestPrime(99.0)).toBe(97);
 });
 
-test('6. getClosestPrime(target) should return not return the nearest prime to `target` if it is a prime number', () => {
+test('6. getClosestPrime(target) should return the nearest prime to `target` if it is a prime number', () => {
   const primeTarget = 97;
   const nearestPrime = 101;
   expect(getClosestPrime(primeTarget) !== primeTarget);
@@ -126,7 +126,7 @@ test('14. getClosestPrimeJsonData(target) should return an object containing the
   expect(closestPrimeField).toBeDefined();
 });
 
-test('15. getClosestPrime(target) should return smaller nearest prime number as JSON when `target` has 2 equidistant primes and is valid', () => {
+test('15. getClosestPrimeJsonData(target) should return smaller nearest prime number as JSON when `target` has 2 equidistant primes and is valid', () => {
   const queryParams = {
     target: 5
   };
@@ -135,7 +135,7 @@ test('15. getClosestPrime(target) should return smaller nearest prime number as 
   expect(closestPrimeField).toBe(3);
 });
 
-test('16. getClosestPrime(target) should return the nearest prime when `target` contains decimals but is still a whole number', () => {
+test('16. getClosestPrimeJsonData(target) should return the nearest prime as JSON when `target` contains decimals but is still a whole number', () => {
   const queryParams = {
     target: 99.0
   };
@@ -144,7 +144,7 @@ test('16. getClosestPrime(target) should return the nearest prime when `target` 
   expect(closestPrimeField).toBe(97);
 });
 
-test('17. getClosestPrime(target) should return the nearest prime to `target` and not `target` itself as JSON if it is a prime number', () => {
+test('17. getClosestPrimeJsonData(target) should return the nearest prime to `target` and not `target` itself as JSON if it is a prime number', () => {
   const queryParams = {
     target: 97
   };
@@ -154,7 +154,7 @@ test('17. getClosestPrime(target) should return the nearest prime to `target` an
   expect(closestPrimeField).toBe(101);
 });
 
-test('18. getClosestPrime(target) should return 999,983 when `target` is greater than the last prime number under 1,000,000', () => {
+test('18. getClosestPrimeJsonData(target) should return 999,983 as JSON when `target` as JSON is greater than the last prime number under 1,000,000', () => {
   let queryParams = {
     target: 999_984
   };
@@ -170,7 +170,7 @@ test('18. getClosestPrime(target) should return 999,983 when `target` is greater
   expect(closestPrimeField).toBe(999_983);
 });
 
-test('19. getClosestPrime(target) should return 2 when `target` is less than 2 but greater than -1', () => {
+test('19. getClosestPrimeJsonData() should return 2 as JSON when `target` is less than 2 but greater than -1', () => {
   let queryParams = {
     target: 0
   };
