@@ -1,127 +1,189 @@
 const { test, expect } = require('@jest/globals');
 const { isNumberPrime, getClosestPrime, getClosestPrimeJsonData } = require('../src/closest');
 
-// isNumberPrime
+// #region isNumberPrime tests
 
-test('isNumberPrime(number) should return true when number is prime', () => {
-  expect(isNumberPrime(7)).toBe(true);
-  expect(isNumberPrime(97)).toBe(true);
-  expect(isNumberPrime(452377)).toBe(true);
+test('0. isNumberPrime(number) should return true when `number` is prime and greater than 0', () => {
+  const primeNumbers = [7, 97, 452_377];
+  for (let i = 0; i < primeNumbers.length; i++) {
+    expect(isNumberPrime(primeNumbers[i])).toBe(true);
+  }
 });
 
-test('isNumberPrime(number) should return false when number is not prime', () => {
-  expect(isNumberPrime(6)).toBe(false);
-  expect(isNumberPrime(95)).toBe(false);
-  expect(isNumberPrime(476091)).toBe(false);
+test('1. isNumberPrime(number) should return false when `number` is not prime and greater than 0', () => {
+  const nonPrimeNumbers = [6, 100, 400_000];
+  for (let i = 0; i < nonPrimeNumbers.length; i++) {
+    expect(isNumberPrime(nonPrimeNumbers[i])).toBe(false);
+  }
 });
 
-// getClosestPrime
-
-test('getClosestPrime(target) should return 999983 when target 1000000', () => {
-  expect(getClosestPrime(1000000)).toBe(999983);
+test('2. isNumberPrime(number) should return false when `number` is less than 0', () => {
+  const invalidNumber = -1;
+  expect(isNumberPrime(invalidNumber)).toBe(false);
 });
 
-test('getClosestPrime(target) should return 1 when target is 0', () => {
-  expect(getClosestPrime(0)).toBe(1);
+// #endregion
+
+// #region getClosestPrime tests
+
+test('3. getClosestPrime(target) should return the nearest prime number when `target` is valid', () => {
+  const validTargetsAndTheirClosestPrime = [
+    {
+      target: 8,
+      closestPrime: 7
+    },
+    {
+      target: 127_782,
+      closestPrime: 127_781
+    },
+    {
+      target: 732_835,
+      closestPrime: 732_833
+    }
+  ];
+  for (let i = 0; i < validTargetsAndTheirClosestPrime.length; i++) {
+    expect(getClosestPrime(validTargetsAndTheirClosestPrime[i].target)).toBe(
+      validTargetsAndTheirClosestPrime[i].closestPrime
+    );
+  }
 });
 
-test('getClosestPrime(target) should return nearest prime number if target is already a prime number', () => {
-  expect(getClosestPrime(97)).toBe(101);
+test('4. getClosestPrime(target) should return smaller nearest prime number when `target` has 2 equidistant primes and is valid', () => {
+  const target = 5;
+  const smallerEquidistantPrime = 3; // largerEquidistantPrime = 7
+  expect(getClosestPrime(target)).toBe(smallerEquidistantPrime);
 });
 
-test('getClosestPrime(target) should return 97 when target is 99.0', () => {
+test('5. getClosestPrime(target) should return the nearest prime when `target` contains decimals but is still a whole number', () => {
   expect(getClosestPrime(99.0)).toBe(97);
 });
 
-test('getClosestPrime(target) should throw an exception when target is less than 0', () => {
-  expect(() => {
-    getClosestPrime(-1);
-  }).toThrowError(new Error('target -1 out of bounds ( 0 to 1000000 )'));
+test('6. getClosestPrime(target) should return not return the nearest prime to `target` if it is a prime number', () => {
+  const primeTarget = 97;
+  const nearestPrime = 101;
+  expect(getClosestPrime(primeTarget) !== primeTarget);
+  expect(getClosestPrime(primeTarget)).toBe(nearestPrime);
 });
 
-test('getClosestPrime(target) should throw an exception when target is greater than 1000000', () => {
-  expect(() => {
-    getClosestPrime(1000001);
-  }).toThrowError(new Error('target 1000001 out of bounds ( 0 to 1000000 )'));
+test('7. getClosestPrime(target) should return 999,983 when `target` is greater than the last prime number under 1,000,000', () => {
+  expect(getClosestPrime(999_984)).toBe(999_983);
+  expect(getClosestPrime(1_000_000)).toBe(999_983);
 });
 
-test('getClosestPrime(target) should throw an exception when target is a decimal', () => {
-  expect(() => {
-    getClosestPrime(99.5);
-  }).toThrowError(new Error('target 99.5 is a decimal'));
-  expect(() => {
-    getClosestPrime(999.3455);
-  }).toThrowError(new Error('target 999.3455 is a decimal'));
+test('8. getClosestPrime(target) should return 2 when `target` is 0', () => {
+  expect(getClosestPrime(0)).toBe(2);
 });
 
-test('getClosestPrime(target) should throw an exception when target is not a number', () => {
+test('9. getClosestPrime(target) should throw an error when `target` is less than 0', () => {
+  const invalidTarget = -1;
   expect(() => {
-    getClosestPrime('hello');
-  }).toThrowError(new Error('target hello is not a number'));
+    getClosestPrime(invalidTarget);
+  }).toThrowError(new RangeError(`target '${invalidTarget}' is not in range 0-1,000,000`));
 });
 
-// getClosestPrimeJsonData
+test('10. getClosestPrime(target) should throw a RangeError when `target` is greater than 1,000,000', () => {
+  const invalidTarget = 1_000_001;
+  expect(() => {
+    getClosestPrime(invalidTarget);
+  }).toThrowError(new RangeError(`target '${invalidTarget}' is not in range 0-1,000,000`));
+});
 
-test('getClosestPrimeJsonData(target) should return 999983 when target 1000000', () => {
-  const testParams = {
-    target: 1000000
+test('11. getClosestPrime(target) should throw an Error when target is a non-whole decimal', () => {
+  const nonWholeDecimalTarget = 99.5;
+  const expectedError = new Error(`target '${nonWholeDecimalTarget}' is a non-whole decimal value`);
+  expect(() => {
+    getClosestPrime(nonWholeDecimalTarget);
+  }).toThrowError(expectedError);
+});
+
+test('12. getClosestPrime(target) should throw a TypeError when `target` is not of type "string"', () => {
+  const invalidTarget = null;
+  const expectedError = new TypeError(
+    `expected typeof target to be 'number' or 'string', but got '${typeof invalidTarget}' instead`
+  );
+  expect(() => {
+    getClosestPrime(invalidTarget);
+  }).toThrowError(expectedError);
+});
+
+test('13. getClosestPrime(target) should throw a TypeError when `target` is of type "string" but gets parsed as NaN', () => {
+  const invalidStringTarget = 'hello';
+  const expectedError = new TypeError(`target '${invalidStringTarget}' evaluated to NaN`);
+  expect(() => {
+    getClosestPrime(invalidStringTarget);
+  }).toThrowError(expectedError);
+});
+
+// #endregion
+
+// #region getClosestPrimeJsonData tests
+
+test('14. getClosestPrimeJsonData(target) should return an object containing the field `closestPrime` when target is valid', () => {
+  const queryParams = {
+    target: 7
   };
-  expect(getClosestPrimeJsonData(testParams)).toEqual({ closestPrime: 999983 });
+  const closestPrimeField = getClosestPrimeJsonData(queryParams).closestPrime;
+  expect(closestPrimeField).toBeDefined();
 });
 
-test('getClosestPrimeJsonData(target) should return 1 when target is 0', () => {
-  const testParams = {
-    target: 0
+test('15. getClosestPrime(target) should return smaller nearest prime number as JSON when `target` has 2 equidistant primes and is valid', () => {
+  const queryParams = {
+    target: 5
   };
-  expect(getClosestPrimeJsonData(testParams)).toEqual({ closestPrime: 1 });
+  const closestPrimeField = getClosestPrimeJsonData(queryParams).closestPrime;
+  expect(closestPrimeField).toBeDefined();
+  expect(closestPrimeField).toBe(3);
 });
 
-test('getClosestPrimeJsonData(target) should return nearest prime number if target is already a prime number', () => {
-  const testParams = {
-    target: 97
-  };
-  expect(getClosestPrimeJsonData(testParams)).toEqual({ closestPrime: 101 });
-});
-
-test('getClosestPrimeJsonData(target) should return 97 when target is 99.0', () => {
-  const testParams = {
+test('16. getClosestPrime(target) should return the nearest prime when `target` contains decimals but is still a whole number', () => {
+  const queryParams = {
     target: 99.0
   };
-  expect(getClosestPrimeJsonData(testParams)).toEqual({ closestPrime: 97 });
+  const closestPrimeField = getClosestPrimeJsonData(queryParams).closestPrime;
+  expect(closestPrimeField).toBeDefined();
+  expect(closestPrimeField).toBe(97);
 });
 
-test('getClosestPrimeJsonData(target) should throw an exception when target is less than 0', () => {
-  const testParams = {
-    target: -1
+test('17. getClosestPrime(target) should return the nearest prime to `target` and not `target` itself as JSON if it is a prime number', () => {
+  const queryParams = {
+    target: 97
   };
-  expect(() => {
-    getClosestPrimeJsonData(testParams);
-  }).toThrowError(new Error('target -1 out of bounds ( 0 to 1000000 )'));
+  const closestPrimeField = getClosestPrimeJsonData(queryParams).closestPrime;
+  expect(closestPrimeField).toBeDefined();
+  expect(closestPrimeField !== queryParams.target).toBe(true);
+  expect(closestPrimeField).toBe(101);
 });
 
-test('getClosestPrimeJsonData(target) should throw an exception when target is greater than 1000000', () => {
-  const testParams = {
-    target: 1000001
+test('18. getClosestPrime(target) should return 999,983 when `target` is greater than the last prime number under 1,000,000', () => {
+  let queryParams = {
+    target: 999_984
   };
-  expect(() => {
-    getClosestPrimeJsonData(testParams);
-  }).toThrowError(new Error('target 1000001 out of bounds ( 0 to 1000000 )'));
+  let closestPrimeField = getClosestPrimeJsonData(queryParams).closestPrime;
+  expect(closestPrimeField).toBeDefined();
+  expect(closestPrimeField).toBe(999_983);
+
+  queryParams = {
+    target: 1_000_000
+  };
+  closestPrimeField = getClosestPrimeJsonData(queryParams).closestPrime;
+  expect(closestPrimeField).toBeDefined();
+  expect(closestPrimeField).toBe(999_983);
 });
 
-test('getClosestPrimeJsonData(target) should throw an exception when target is a decimal', () => {
-  const testParams = {
-    target: 99.54
+test('19. getClosestPrime(target) should return 2 when `target` is less than 2 but greater than -1', () => {
+  let queryParams = {
+    target: 0
   };
-  expect(() => {
-    getClosestPrimeJsonData(testParams);
-  }).toThrowError(new Error('target 99.54 is a decimal'));
+  let closestPrimeField = getClosestPrimeJsonData(queryParams).closestPrime;
+  expect(closestPrimeField).toBeDefined();
+  expect(closestPrimeField).toBe(2);
+
+  queryParams = {
+    target: 1
+  };
+  closestPrimeField = getClosestPrimeJsonData(queryParams).closestPrime;
+  expect(closestPrimeField).toBeDefined();
+  expect(closestPrimeField).toBe(2);
 });
 
-test('getClosestPrimeJsonData(target) should throw an exception when target is not a number', () => {
-  const testParams = {
-    target: 'hello'
-  };
-  expect(() => {
-    getClosestPrimeJsonData(testParams);
-  }).toThrowError(new Error('target hello is not a number'));
-});
+// #endregion

@@ -12,6 +12,7 @@
   "rules": {
     "comma-dangle": "off",
     "linebreak-style": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "max-len": "off"
   }
 }

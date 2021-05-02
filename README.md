@@ -1,6 +1,6 @@
 # primeNumberApi
 
-A simple web API for prime numbers.
+A simple web API for the prime numbers under one-million.
 
 ## API Reference
 

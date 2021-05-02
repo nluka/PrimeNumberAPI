@@ -1,13 +1,16 @@
-const primeNumbers = require('./primeNumbers');
+const primeNumbersJs = require('./primeNumbers.js');
 
-const primeNumberList = primeNumbers.primeNumber;
+const primeNums = primeNumbersJs.primeNumbers;
 
 function isNumberPrime(number) {
-  for (let y = 0; y <= primeNumberList.length; y++) {
-    if (primeNumberList[y] > number / 2) {
+  if (number <= 1) {
+    return false;
+  }
+  for (let i = 0; i < primeNums.length; i++) {
+    if (primeNums[i] > number / 2) {
       return true;
     }
-    if (number % primeNumberList[y] === 0) {
+    if (number % primeNums[i] === 0) {
       return false;
     }
   }
@@ -15,34 +18,41 @@ function isNumberPrime(number) {
 }
 
 function getClosestPrime(target) {
-  if (typeof target !== 'number') {
-    throw new Error(`target ${target} is not a number`);
+  const validTargetTypes = ['number', 'string'];
+  if (!validTargetTypes.includes(typeof target)) {
+    throw new TypeError(`expected typeof target to be 'number' or 'string', but got '${typeof target}' instead`);
   }
-  if (target % 1 !== 0) {
-    throw new Error(`target ${target} is a decimal`);
+
+  const targetNumber = parseFloat(target);
+
+  if (Number.isNaN(targetNumber)) {
+    throw new TypeError(`target '${target}' evaluated to NaN`);
   }
-  if (target > 1000000 || target < 0) {
-    throw new Error(`target ${target} out of bounds ( 0 to 1000000 )`);
+  if (targetNumber % 1 !== 0) {
+    throw new Error(`target '${targetNumber}' is a non-whole decimal value`);
   }
-  let increment = 0;
+  if (targetNumber > 1_000_000 || targetNumber < 0) {
+    throw new RangeError(`target '${targetNumber}' is not in range 0-1,000,000`);
+  }
+
+  let i = 0;
   while (true) {
-    increment++;
-    if (isNumberPrime(target - increment) && target - increment > 0) {
-      return target - increment;
+    i++;
+    if (isNumberPrime(targetNumber - i) && targetNumber - i > 0) {
+      return targetNumber - i;
     }
-    if (isNumberPrime(target + increment) && target + increment < 1000000) {
-      return target + increment;
+    if (isNumberPrime(targetNumber + i) && targetNumber + i < 1_000_000) {
+      return targetNumber + i;
     }
   }
 }
 
 function getClosestPrimeJsonData(queryParams) {
-  // if queryParams.target is not valid (undefined or out of rage), an error should be thrown
   return {
     closestPrime: getClosestPrime(queryParams.target)
   };
 }
 
-module.exports.getClosestPrime = getClosestPrime;
 module.exports.isNumberPrime = isNumberPrime;
+module.exports.getClosestPrime = getClosestPrime;
 module.exports.getClosestPrimeJsonData = getClosestPrimeJsonData;

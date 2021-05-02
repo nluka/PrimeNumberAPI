@@ -1,4 +1,4 @@
-module.exports.primeNumber = [
+const primeNumbers = [
   2,
   3,
   5,
@@ -78498,3 +78498,5 @@ module.exports.primeNumber = [
   999979,
   999983
 ];
+
+module.exports.primeNumbers = primeNumbers;
