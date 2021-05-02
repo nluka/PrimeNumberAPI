@@ -12,11 +12,11 @@ A simple web API for the prime numbers under one-million.
 
 #### Query parameters
 
-| Parameter        | Type  | Default Value | Possible Values | Description                                                                                                                         |
-| ---------------- | ----- | ------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| min (optional)   | `int` | 1             | 1-1,000,000     | The smallest number allowed.                                                                                                        |
-| max (optional)   | `int` | 1,000,000     | 1-1,000,000     | The largest number allowed.                                                                                                         |
-| count (optional) | `int` | 1             | 1-100           | The number of prime numbers to return. If there are less than `count` primes between `min` and `max`, will return as many as exist. |
+| Parameter          | Type  | Default Value | Possible Values | Description                                                                                                                         |
+| ------------------ | ----- | ------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| min `(optional)`   | `int` | 1             | 1-1,000,000     | The smallest number allowed.                                                                                                        |
+| max `(optional)`   | `int` | 1,000,000     | 1-1,000,000     | The largest number allowed.                                                                                                         |
+| count `(optional)` | `int` | 1             | 1-100           | The number of prime numbers to return. If there are less than `count` primes between `min` and `max`, will return as many as exist. |
 
 #### Response
 
@@ -62,9 +62,9 @@ Get one random prime number between 1 and 100
 
 #### Query parameters
 
-| Parameter         | Type  | Default Value | Possible Values | Description                       |
-| ----------------- | ----- | ------------- | --------------- | --------------------------------- |
-| target (required) | `int` | null          | 1-1,000,000     | The target for the closest prime. |
+| Parameter           | Type  | Possible Values | Description                       |
+| ------------------- | ----- | --------------- | --------------------------------- |
+| target `(required)` | `int` | 1-1,000,000     | The target for the closest prime. |
 
 #### Response
 

@@ -1,5 +1,7 @@
 const express = require('express');
 
+const cors = require('cors');
+
 // const random = require('./random');
 
 const closest = require('./closest');
@@ -7,6 +9,7 @@ const closest = require('./closest');
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 // #region Routes
 app.get('/', (req, res) => {
