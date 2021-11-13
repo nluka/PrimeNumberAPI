@@ -8,14 +8,10 @@ def write_number_map_file():
     f.write("const numberMap = new Map<number, boolean>([\n")
 
     for i in range(1_000_001):
-        f.write("[")
-        f.write(str(i))
-        f.write(",")
-        if is_prime(i):
-            f.write("true")
-        else:
-            f.write("false")
-        f.write("],")
+        f.write("[{number},{bool}],".format(
+            number=i,
+            bool="true" if is_prime(i) else "false")
+        )
 
     f.write("\n]);\nexport default numberMap;\n")
 

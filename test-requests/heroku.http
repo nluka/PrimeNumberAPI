@@ -1,0 +1,5 @@
+GET https://prime-number-api.herokuapp.com/closest?target=9 HTTP/1.1'
+
+###
+
+GET https://prime-number-api.herokuapp.com/closest?target={} HTTP/1.1
