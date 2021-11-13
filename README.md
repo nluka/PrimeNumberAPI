@@ -2,15 +2,25 @@
 
 A simple web API for the prime numbers under one-million.
 
+- [Servers](#servers)
+- [API Reference](#api-reference)
+  - [Get Closest Prime Number](#get-closest-prime-number)
+
+## Servers
+
+| Name       | URL                                                                                | Description                                                                                                                 |
+| ---------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Production | [https://prime-number-api.herokuapp.com/](https://prime-number-api.herokuapp.com/) | The primary server. Note that it may take some time to respond to the first call, as the free heroku server is starting up. |
+
 ## API Reference
 
-### Get closest prime number
+### Get Closest Prime Number
 
 ```HTTP
-  GET /closest
+GET /closest
 ```
 
-#### Query parameters
+#### Query Parameters
 
 | Parameter         | Type  | Possible Values | Description                       |
 | ----------------- | ----- | --------------- | --------------------------------- |
@@ -20,10 +30,13 @@ A simple web API for the prime numbers under one-million.
 
 ```ts
 {
-  closestPrime: Number;
-  // The closest prime number to the target.
-  // If there are 2 equidistant primes, returns the smaller one.
-  // If the target is a prime, returns the closest prime to the target that isn't itself.
+  target: Number;
+  // the target the request received
+
+  closest: Number;
+  // the closest prime number to the target
+  // if the target is prime, returns the closest prime to the target that isn't itself
+  // if there are 2 equidistant primes, returns the smaller one
 }
 ```
 
@@ -32,5 +45,5 @@ A simple web API for the prime numbers under one-million.
 Get closest prime number to 123
 
 ```HTTP
-  GET /closest?target=123
+GET /closest?target=123
 ```

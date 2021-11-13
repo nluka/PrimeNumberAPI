@@ -1,0 +1,5 @@
+GET http://localhost:3000/closest?target=9 HTTP/1.1'
+
+###
+
+GET http://localhost:3000/closest?target={} HTTP/1.1

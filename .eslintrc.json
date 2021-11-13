@@ -5,14 +5,9 @@
     "commonjs": false,
     "es2021": true
   },
-  "extends": ["airbnb-base"],
+  "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaVersion": 12
   },
-  "rules": {
-    "comma-dangle": "off",
-    "linebreak-style": "off",
-    "no-plusplus": "off",
-    "max-len": "off"
-  }
+  "rules": {}
 }
