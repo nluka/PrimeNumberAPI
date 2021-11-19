@@ -1,16 +1,9 @@
-# primeNumberApi
+# prime-number-api
 
 A simple web API for the prime numbers under one-million.
 
-- [Servers](#servers)
 - [API Reference](#api-reference)
   - [Get Closest Prime Number](#get-closest-prime-number)
-
-## Servers
-
-| Name       | URL                                                                                | Description                                                                                                                 |
-| ---------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Production | [https://prime-number-api.herokuapp.com/](https://prime-number-api.herokuapp.com/) | The primary server. Note that it may take some time to respond to the first call, as the free heroku server is starting up. |
 
 ## API Reference
 
